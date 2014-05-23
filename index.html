@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Git: van n00b naar guru</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Git</h1>
+					<h3>van n00b naar guru</h3>
+				</section>
+
+				<section>
+					<h2>Overzicht</h2>
+					<ul>
+						<li><a href="#git-easy">Git level: Easy</a></li>
+						<li><a href="#gitflow">Gitflow</a></li>
+						<li><a href="#git-medium">Git level: Medium</a></li>
+						<li><a href="#best-practices">Best practices</a></li>
+						<li><a href="#git-guru">Git level: Guru</a></li>
+						<li><a href="pull-requests">Pull requests</a></li>
+						<li>Resources</li>
+					</ul>
+				</section>
+
+				<section>
+					<section id="git-easy">
+						<h2>Git level: Easy</h2>
+						<p>
+							Voor we aan het echte werk gaan beginnen even wat basis principes van git.
+						</p>
+					</section>
+					<section>
+						<h2>Local first</h2>
+						<p>
+							Alles wat je doet, doe je lokaal. Er gaat pas iets naar de server zodra je het pushed.
+						</p>
+						<p class="fragment">
+							Wanneer het helemaal fout is gegaan kan je altijd je lokale repository weggooien en een nieuwe clone maken.
+						</p>
+					</section>
+					<section>
+						<h2>Branches</h2>
+						<p>
+							Je kan meerdere branches hebben binnen een repository (zie GitFlow).
+						</p>
+						<p class="fragment">
+							Het werk op branch A heeft geen impact op het werk in branch B.
+						</p>
+					</section>
+					<section>
+						<h2>Remotes</h2>
+						<p>
+							Een remote is een kopie van de repository op een centrale plaats, bijvoorbeeld GitHub of Bitbucket.
+						</p>
+						<p class="fragment">
+							Wanneer een branch gekoppeled is aan een remote dan is het een tracked branch. Deze kan laten zien hoeveel commits je voor of achter loopt.
+							<img src="img/tracked-branches.png" alt="" />
+						</p>
+					</section>
+					<section>
+						<h2>Multiple remotes</h2>
+						<p>
+							Je kan meerdere remotes hebben, deze hoeven niks met elkaar te maken te hebben.
+						</p>
+						<img src="img/multiple-remotes.png" alt="" />
+					</section>
+				</section>
+
+				<section>
+					<section id="gitflow">
+						<h2>Gitflow</h2>
+						<p>
+							Gitflow is een strategie die voorschrijft met welke branches je zou moeten werken.
+						</p>
+					</section>
+					<section>
+						<h2>Branch overzicht</h2>
+						<ul>
+							<li>main, laatste productie versie</li>
+							<li class="fragment">development, alleen afgeronde features</li>
+							<li class="fragment">feature/&lt;feature name&gt;, feature in ontwikkeling</li>
+							<li class="fragment">release, acties die nodig zijn om een release te kunnen maken</li>
+							<li class="fragment">hotfix, bugfix op een productie versie</li>
+						</ul>
+					</section>
+					<section>
+						<h2>En nu in een prachtig plaatje</h2>
+						<img src="img/gitflow.png" alt="" />
+					</section>
+					<section>
+						<h2>Makkelijk te gebruiken</h2>
+						<p>
+							Ondersteuning zit ingebakken in SourceTree, er is een aparte button voor.
+						</p>
+						<img src="img/gitflow-button.png" alt="" />
+						<p class="fragment">Ook via de command line te gebruiken voor de echte die hards</p>
+					</section>
+				</section>
+
+				<section>
+					<section id="git-medium">
+						<h2>Git level: Medium</h2>
+						<p>
+							We hebben de basis gehad, tijd voor wat moeilijkere zaken.
+						</p>
+					</section>
+					<section>
+						<h2>Samenvoegen van branches</h2>
+						<p>
+							Er zijn drie strategieen om branches samen te voegen
+						</p>
+						<ol class="fragment">
+							<li>Merge commit</li>
+							<li>Fast forward merge</li>
+							<li>Rebase</li>
+						</ol>
+					</section>
+					<section>
+						<h2>1) Merge</h2>
+						<p>
+							De veranderingen in branch B worden samengevoegd met branch A. Vaak van feature branch naar development branch.
+						</p>
+						<img src="img/merge-explained.png" alt="" />
+					</section>
+					<section>
+						<h2>Een merge blijft zichtbaar</h2>
+						<p>
+							Het mergen van 2 branches blijft voor altijd en eeuwig zichtbaar in je history.
+						</p>
+						<img src="img/merges-timeline.png" alt="" />
+					</section>
+					<section>
+						<h2>Fast forward merge</h2>
+						<p>
+							Een fastforward merge kan alleen plaats vinden als er na het starten van de branch geen activiteit heeft plaatsgevonden op de bron branch.
+						</p>
+						<img src="img/fastforward-merge-explained.png" alt="" />
+					</section>
+					<section>
+						<h2>Uitzetten van fast forward</h2>
+						<p>
+							Het is mogelijk om fast forward merges uit te zetten. Je zou dit kunnen doen om altijd te kunnen blijven zien wanneer er een merge heeft plaatsgevonden.
+						</p>
+						<img src="img/nofastforward-merge-explained.png" alt="" />
+					</section>
+					<section>
+						<h2>Rebase</h2>
+						<p>
+							Bij een rebase worden de wijzingen van de branch teruggespeeld op de branch die over moet blijven. Bijvoorbeeld van feature branch naar development branch.
+						</p>
+						<div class="fragment">
+							<p>
+								Het resultaat ziet er hetzelfde uit als een fast forward merge.
+							</p>
+							<img src="img/rebase-explained.png" alt="" />
+						</div>
+					</section>
+					<section>
+						<h2>Merge vs Rebase</h2>
+						<p>
+							Even side-by-side het verschil in resultaat van een merge en een rebase.
+						</p>
+						<img src="img/merge-vs-rebase.png" alt="" />
+					</section>
+					<section>
+						<h2>Wanneer gebruik je Merge?</h2>
+						<p>
+							Gebruik merge wanneer:
+						</p>
+						<ul>
+							<li>het belangrijk dat je in de history kunt zien dat een feature is toegevoegd.</li>
+							<li class="fragment">je feature branch publiek is.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Wanneer gebruik je Rebase?</h2>
+						<p>
+							Gebruik een rebase wanneer:
+						</p>
+						<ul>
+							<li>je feature branch achter loopt op development en je features uit development nodig hebt.</li>
+							<li class="fragment">je branch nog niet publiek is.</li>
+							<li class="fragment">een lineare history is waar je naar streeft.</li>
+							<li class="fragment">je een kleine feature branches hebt die terug naar development gaat.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section id="best-practices">
+						<h2>Best practices</h2>
+						<p>
+							Een paar belangrijke gewoontes op een rij, hiermee onderscheid je je van de standaard Git gebruiker.
+						</p>
+					</section>
+					<section>
+						<h2>.gitignore</h2>
+						<p>
+							Voor je de eerste commit doet in je repository zorg je voor een goede .gitignore.
+						</p>
+						<p class="fragment">Weet je niet waar je moet beginnen? <a href="http://gitignore.io">gitignore.io</a>!</p>
+					</section>
+					<section>
+						<h2>Commit als een pro</h2>
+						<ul>
+							<li>Iedere commit doet slechts 1 ding</li>
+							<li class="fragment">Als je unstaged files meerdere features omvatten dan gebruik je staging om de files per feature te commiten</li>
+							<li class="fragment">
+								In SourceTree kan je ook delen van een file of zelf maar een enkele regel stagen
+								<div id="name">
+									<video src="img/stage-selected-line.mov" controls style="height:320px;width:480px;">
+									</video>
+								</div>
+							</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Volg de 50/72 regel</h2>
+						<p>
+							De <a href="http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html">50/72 regel</a> schrijft voor hoe een goede commit message eruit moet zien.
+						</p>
+						<ul>
+							<li class="fragment">50 karakters als onderwerp, geschreven in de gebiedende wijs</li>
+							<li class="fragment">Gevolgd door een lege regel</li>
+							<li class="fragment">Uitleg over de commit, met regels die maximaal 72 karakters lang zijn.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Wat maakt een goede commit message?</h2>
+						<p>
+							Leg uit wat en/of waarom je iets hebt gedaan. De werking is uit het commentaar en de code te halen.
+						</p>
+						<p class="fragment">
+							Het schrijven van een goede commit message kost tijd.
+						</p>
+					</section>
+				</section>
+
+				<section>
+					<section id="git-guru">
+						<h2>Git level: Guru</h2>
+						<p>
+							It giet oan!
+						</p>
+					</section>
+					<section>
+						<h2>Stash</h2>
+						<p>
+							Werk dat je niet wilt weggooien maar ook niet wilt commiten kan je stashen.
+						</p>
+					</section>
+					<section>
+						<h2>Git Amend</h2>
+						<p>
+							Waar is git amend handig voor?
+						</p>
+						<p class="fragment">
+							Het aanvullen van je laatste commit met extra files, commentaar en/of wijzigingen in de code. Dit voorkomt een extra commit in de history.
+						</p>
+					</section>
+					<section>
+						<h2>Git Amend, wanneer niet?</h2>
+						<div class="fragment">
+							<p>
+								Niet gebruiken als je de laatste commit al naar de server hebt gepushed!
+							</p>
+							<img src="img/amend-after-push.png" alt="" />
+						</div>
+					</section>
+					<section>
+						<h2>Interactive rebase</h2>
+						<p>
+							Zolang de changes niet zijn gepushed naar de server kan je de history van je branch aanpassen, dit doe je met interactive rebase.
+						</p>
+					</section>
+					<section>
+						<h2>Wat kan een interactive rebase?</h2>
+						<ul>
+							<li>Overnemen van commits (pick)</li>
+							<li class="fragment">Samenvoegen van commits (squash)</li>
+							<li class="fragment">Commit message aanpassen (reword)</li>
+							<li class="fragment">Commit aanpassen (edit)</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Interactive Rebase - SourceTree</h2>
+						<img src="img/interactive-rebase.png" alt="" />
+					</section>
+				</section>
+
+				<section>
+					<section id="pull-requests">
+						<h2>Pull requests</h2>
+						<p>
+							Voordat je je werk uit de feature branch merged met de development branch kijkt er nog even iemand anders naar je werk.
+						</p>
+					</section>
+					<section>
+						<h2>Voordelen</h2>
+						<ul>
+							<li>Een frisse blik die even kijkt of er niks raars in je code gebeurd</li>
+							<li class="fragment">Kennisdeling, degene die je code reviewt doet kennis op van jouw project</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Spelregels</h2>
+						<ul>
+							<li>Pull requests mogen niet te lang blijven liggen, het liefst dezelfde dag nog gereviewd.</li>
+							<li class="fragment">De initiator is ook degene die de merge uitvoert, merge conflicts zijn dan je eigen probleem.</li>
+							<li class="fragment">Alleen een pull request declinen als het fundamenteel fout is, anders met extra commit(s) aanpassen.</li>
+							<li class="fragment">Goede commits die een enkel doel dienen.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Clean up</h2>
+						<p>
+							Een PR kan aanpassingen behoeven, dit resulteert in extra commits.
+						</p>
+						<p class="fragment">
+							Een interactive rebase kan dan weer zorgen voor een schone history.
+						</p>
+						<p class="fragment">
+							Omdat je history al publiek is kan je alleen nog een force push doen, dit is levensgevaarlijk maar soms nodig.
+						</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>Handige links</h2>
+					<ul>
+						<li><a href="http://sethrobertson.github.io/GitFixUm/fixup.html">Interactive Git fixup advisor</a></li>
+						<li><a href="http://www.gitignore.io">Gitignore generator</a></li>
+						<li><a href="rypress.com/tutorials/git/rebasing.html">Rebase tutorial</a></li>
+						<li><a href="http://rakeroutes.com/blog/deliberate-git/">Deliberate Git</a></li>
+					</ul>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
